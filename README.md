@@ -1,3 +1,3 @@
 ## ImageRenamer
-Batch Image Renaming package
-Alpha/Unstable
+Batch Image Renaming package  
+*Alpha/Unstable*
