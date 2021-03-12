@@ -1,9 +1,15 @@
+argcomplete==1.12.2
 argh==0.26.2
 build==0.3.1.post1
+click==7.1.2
+colorama==0.4.4
+distro==1.5.0
 ExifRead==2.3.2
+imagerenamer @ git+https://github.com/JSogaard/imagerenamer.git@86fc156d4def1379b8f2d6af649b0a41abe203e5
 packaging==20.9
 pep517==0.10.0
 pip-review==1.1.0
 pyparsing==2.4.7
 toml==0.10.2
 tqdm==4.59.0
+userpath==1.4.2

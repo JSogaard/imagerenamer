@@ -8,7 +8,7 @@ setuptools.setup(
     package_dir={'': 'src'},
     entry_points = {
         'console_scripts': [
-        'main = imagerenamer:imagerenamer'
+            'imagerenamer = imagerenamer:main'
         ]
     },
     install_requires=['exifread', 'argh', 'tqdm'],

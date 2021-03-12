@@ -50,5 +50,11 @@ def non_recursive(directory, file_exts=['.NEF']):
         newpath = f"{directory}/{cdate} - {iter:03}.{file_ext}"
         os.rename(img[0], newpath)
 
-argh.dispatch_command(non_recursive)
+parser = argh.ArghParser()
+parser.set_default_command(non_recursive)
 
+def main():
+    argh.dispatch(parser)
+
+if __name__ == '__main__':
+    main()
