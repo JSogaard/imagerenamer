@@ -6,6 +6,12 @@ setuptools.setup(
     description='Image batch renaming package',
     py_modules='imagerenamer',
     package_dir={'': 'src'},
+    entry_points = {
+        'console_scripts': [
+        'main = imagerenamer:imagerenamer'
+        ]
+    },
+    install_requires=['exifread', 'argh', 'tqdm'],
     url='https://github.com/JSogaard/imagerenamer',
     packages=setuptools.find_packages(where='src')
 )
