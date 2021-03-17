@@ -12,5 +12,5 @@ setuptools.setup(
     },
     install_requires=['exifread', 'argh', 'tqdm'],
     url='https://github.com/JSogaard/imagerenamer',
-    packages=setuptools.find_packages(where='src')
+    packages=setuptools.find_packages()
 )
