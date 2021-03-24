@@ -3,7 +3,7 @@ import os
 import glob
 import datetime as dt
 import exifread
-import argh
+import fire
 from tqdm import tqdm
 
 
@@ -50,11 +50,9 @@ def non_recursive(directory, file_exts=['.NEF']):
         newpath = f"{directory}/{cdate} - {iter:03}.{file_ext}"
         os.rename(img[0], newpath)
 
-parser = argh.ArghParser()
-parser.set_default_command(non_recursive)
 
 def main():
-    argh.dispatch(parser)
+    fire.Fire(non_recursive)
 
 if __name__ == '__main__':
     main()
