@@ -49,7 +49,7 @@ def non_recursive(directory, file_exts=['.NEF']):
     for iter, img in tqdm(enumerate(file_list), desc='2/2 - Renaming files'):
         cdate = img[1].split(' ')[0].replace(':', '-')
         file_ext = img[0].split('.')[-1]
-        newpath = f"{directory}/{cdate} - {iter:padding}.{file_ext}"
+        newpath = f"{directory}/{cdate} - {str(iter).zfill(padding)}.{file_ext}"
         os.rename(img[0], newpath)
 
 
