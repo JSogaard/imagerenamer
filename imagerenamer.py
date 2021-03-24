@@ -43,6 +43,7 @@ def non_recursive(directory, file_exts=['.NEF']):
     # Create new list sorted by creation time at index 1
     file_list = sorted(file_list, key=lambda x: x[1])
 
+    # Determining the left zero padding for the file name iterater
     padding = len(str(len(file_list)))
 
     # Loop through each image file and rename to YY-mm-dd - 000 format. Iterate up.
