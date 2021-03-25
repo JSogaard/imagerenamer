@@ -49,8 +49,8 @@ telegram = ["requests"]
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.9"
-content-hash = "94fbccda1a1f07a62f5820060ea24423fec1e6197a971367511245c983fc47ab"
+python-versions = "^3.8"
+content-hash = "ae9f7a353aa028df2a6f0b999b68084af9e8ce9b81a37086f09a75ac137974f4"
 
 [metadata.files]
 exifread = [
