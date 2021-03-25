@@ -5,6 +5,7 @@ description = "An image file batch renamer"
 authors = ["Jonatan Søgaard <jonatanjuhl@icloud.com>"]
 license = "GPL-3.0-or-later"
 repository = "https://github.com/JSogaard/imagerenamer"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
