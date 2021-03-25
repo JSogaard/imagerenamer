@@ -1,8 +1,9 @@
 [tool.poetry]
 name = "imagerenamer"
 version = "0.1.0"
-description = ""
+description = "An image file batch renamer"
 authors = ["Jonatan Søgaard <jonatanjuhl@icloud.com>"]
+license = "GPL-3.0-or-later"
 
 [tool.poetry.dependencies]
 python = "^3.9"
