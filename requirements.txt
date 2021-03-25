@@ -1,17 +1,6 @@
-argcomplete==1.12.2
-build==0.3.1.post1
-click==7.1.2
-colorama==0.4.4
-distro==1.5.0
-ExifRead==2.3.2
-fire==0.4.0
-imagerenamer @ git+https://github.com/JSogaard/imagerenamer.git@86fc156d4def1379b8f2d6af649b0a41abe203e5
-packaging==20.9
-pep517==0.10.0
-pip-review==1.1.0
-pyparsing==2.4.7
-six==1.15.0
-termcolor==1.1.0
-toml==0.10.2
-tqdm==4.59.0
-userpath==1.4.2
+ExifRead @ file:///Users/jonatansogaard/Library/Caches/pypoetry/artifacts/a5/1a/34/6f88a36fee98a82ee5c30631ac68325062fd479f3abf9ec3e255b8c6d1/ExifRead-2.3.2-py3-none-any.whl
+fire @ file:///Users/jonatansogaard/Library/Caches/pypoetry/artifacts/15/23/17/b4c422002c17821994b23a42e23b64df84a9443841c9026dc070fdcd6c/fire-0.4.0.tar.gz
+imagerenamer==0.1.0
+six @ file:///Users/jonatansogaard/Library/Caches/pypoetry/artifacts/dd/1c/65/ad0dea11136f5a869f072890a0eea955aa8fc35b90c85c55249fd3abfe/six-1.15.0-py2.py3-none-any.whl
+termcolor @ file:///Users/jonatansogaard/Library/Caches/pypoetry/artifacts/a2/5d/c7/e4ccb3b3bb8d3e3aff995fb6ffb12cfc78bbc8affa283907ee5eb5a5a5/termcolor-1.1.0.tar.gz
+tqdm @ file:///Users/jonatansogaard/Library/Caches/pypoetry/artifacts/f9/24/f9/cc660404e0f4fa2eadfdc6910651b21a10b5fffeb6801a5dcf6517a62d/tqdm-4.59.0-py2.py3-none-any.whl
