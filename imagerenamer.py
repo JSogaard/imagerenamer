@@ -30,6 +30,8 @@ def find_ctime(path):
 
 
 def non_recursive(directory, file_exts=['.NEF']):
+    """Searches folder non-recursively for file with given
+    file extensions, retrieves EXIF dates and renames files"""
     # Get list of .NEF files in directory
     files = []
     for ext in file_exts:
