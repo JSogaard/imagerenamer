@@ -70,8 +70,10 @@ def non_recursive(directory, file_exts=['NEF'], xmp_pairing=True):
     for iter, img in tqdm(enumerate(files), desc='2/2 - Renaming files'):
         cdate = img[-1].to_date_string()
         file_ext = img[1]
-        newpath = f"{directory}/{cdate} - {str(iter).zfill(padding)}.{file_ext}"
-        os.rename(img[0], newpath)
+        new_path = f"{directory}/{cdate} - {str(iter).zfill(padding)}.{file_ext}"
+        os.rename(img[0], new_path)
+        if xmp_pairing:
+            xmp_path = f"{directory}/{cdate} - {str(iter).zfill(padding)}.xmp"
 
 
 def main():
