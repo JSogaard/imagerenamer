@@ -36,48 +36,48 @@ def non_recursive(directory, file_exts=['NEF'], xmp_pairing=True):
     as paired file"""
     # Get list of image files in directory
     files = []
-    exts = []
 
     if xmp_pairing:
         xmps = glob.glob(f"{directory}/*.xmp")
         for ext in file_exts:
             for file in glob.glob(f"{directory}/*.{ext}"):
-                file_name = file.split('.')[:-1]
+                file_name = file.split('.')[:-1][0]
                 # Add paired XMP to file property list
-                if file_name in xmps:
+                if file_name + '.xmp' in xmps:
                     xmp = file_name + '.xmp'
-                    files.append([file, ext, xmp])
+                    files.append([file, ext, None, xmp])
                 else:
-                    files.append([file, ext])
+                    files.append([file, ext, None])
 
     else:
         for ext in file_exts:
             for file in glob.glob(f"{directory}/*.{ext}"):
-                files.append([file, ext])
+                files.append([file, ext, None])
 
 
     # Add creation date to file property list
     for file in tqdm(files, desc='1/2 - Retrieving EXIF'):
-        file.append(find_ctime(file[0]))
+        file[2] = find_ctime(file[0])
 
     # Sort file list by creation time at last index (ctime)
-    files.sort(key=lambda x: x[-1])
+    files.sort(key=lambda x: x[2])
 
     # Determining the left zero padding for the file name iterater
     padding = len(str(len(files)))
 
     # Loop through each image file and rename to YY-mm-dd - 000 format.
     for iter, img in tqdm(enumerate(files), desc='2/2 - Renaming files'):
-        cdate = img[-1].to_date_string()
+        cdate = img[2].to_date_string()
         file_ext = img[1]
         new_path = f"{directory}/{cdate} - {str(iter).zfill(padding)}.{file_ext}"
         os.rename(img[0], new_path)
-        if xmp_pairing:
+        if xmp_pairing and len(img) > 3:
             xmp_path = f"{directory}/{cdate} - {str(iter).zfill(padding)}.xmp"
+            os.rename(img[3], xmp_path)
 
 
 def main():
     fire.Fire(non_recursive)
 
 if __name__ == '__main__':
-    main()
+    non_recursive("/Users/jonatansogaard/Desktop/copy")
