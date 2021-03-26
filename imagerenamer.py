@@ -80,4 +80,4 @@ def main():
     fire.Fire(non_recursive)
 
 if __name__ == '__main__':
-    non_recursive("/Users/jonatansogaard/Desktop/copy")
+    main()
