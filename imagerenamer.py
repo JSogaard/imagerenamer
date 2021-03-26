@@ -43,7 +43,7 @@ def non_recursive(directory, file_exts=['NEF'], xmp_pairing=True):
         for ext in file_exts:
             for file in glob.glob(f"{directory}/*.{ext}"):
                 file_name = file.split('.')[:-1]
-                # Add paired XMP to list
+                # Add paired XMP to file property list
                 if file_name in xmps:
                     xmp = file_name + '.xmp'
                     files.append([file, ext, xmp])
@@ -56,17 +56,17 @@ def non_recursive(directory, file_exts=['NEF'], xmp_pairing=True):
                 files.append([file, ext])
 
 
-    # Create new list with tuplets of the path and time of creation for files.
+    # Add creation date to file property list
     for file in tqdm(files, desc='1/2 - Retrieving EXIF'):
         file.append(find_ctime(file[0]))
 
-    # Create new list sorted by creation time at last index (ctime)
+    # Sort file list by creation time at last index (ctime)
     files.sort(key=lambda x: x[-1])
 
     # Determining the left zero padding for the file name iterater
     padding = len(str(len(files)))
 
-    # Loop through each image file and rename to YY-mm-dd - 000 format. Iterate up.
+    # Loop through each image file and rename to YY-mm-dd - 000 format.
     for iter, img in tqdm(enumerate(files), desc='2/2 - Renaming files'):
         cdate = img[-1].split(' ')[0].replace(':', '-')
         file_ext = img[1]
