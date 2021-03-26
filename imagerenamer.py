@@ -26,7 +26,6 @@ def find_ctime(path):
     with open(path, "rb") as file:
         exif = exifread.process_file(file)
         cdate = pm.parse(str(exif["Image DateTime"]))
-        print(cdate)
     return cdate
 
 
