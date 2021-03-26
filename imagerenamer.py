@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 import glob
-import datetime as dt
+import pendulum as pm
 import exifread
 import fire
 from tqdm import tqdm
@@ -14,7 +14,7 @@ def find_cdate(path):
     """
     with open(path, "rb") as file:
         exif = exifread.process_file(file)
-        cdate = str(exif["Image DateTime"]).split(" ")[0].replace(":", "-")
+        cdate = pm.parser(exif["Image DateTime"]).split(" ")[0].replace(":", "-")
     return cdate
 
 
@@ -25,7 +25,8 @@ def find_ctime(path):
     """
     with open(path, "rb") as file:
         exif = exifread.process_file(file)
-        cdate = str(exif["Image DateTime"])
+        cdate = pm.parser(exif["Image DateTime"])
+        print(type(cdate))
     return cdate
 
 
