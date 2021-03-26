@@ -14,7 +14,7 @@ def find_cdate(path):
     """
     with open(path, "rb") as file:
         exif = exifread.process_file(file)
-        cdate = pm.parser(exif["Image DateTime"]).split(" ")[0].replace(":", "-")
+        cdate = pm.parse(str(exif["Image DateTime"]))
     return cdate
 
 
@@ -25,7 +25,7 @@ def find_ctime(path):
     """
     with open(path, "rb") as file:
         exif = exifread.process_file(file)
-        cdate = pm.parser(exif["Image DateTime"])
+        cdate = pm.parse(str(exif["Image DateTime"]))
         print(type(cdate))
     return cdate
 
