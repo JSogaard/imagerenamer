@@ -37,12 +37,12 @@ def non_recursive(directory, file_exts=['NEF']):
     exts = []
     for ext in file_exts:
             for file in glob.glob(f"{directory}/*.{ext}"):
-                files.append([file, ext])
+                files.append([file, ext, None])
 
 
     # Create new list with tuplets of the path and time of creation for files.
     for file in tqdm(files, desc='1/2 - Retrieving EXIF'):
-        file.append(find_ctime(file))
+        file.append(find_ctime(file[0]))
 
     # Create new list sorted by creation time at last index (ctime)
     files.sort(key=lambda x: x[-1])
