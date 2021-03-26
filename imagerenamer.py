@@ -26,7 +26,7 @@ def find_ctime(path):
     with open(path, "rb") as file:
         exif = exifread.process_file(file)
         cdate = pm.parse(str(exif["Image DateTime"]))
-        print(type(cdate))
+        print(cdate)
     return cdate
 
 
@@ -69,7 +69,7 @@ def non_recursive(directory, file_exts=['NEF'], xmp_pairing=True):
 
     # Loop through each image file and rename to YY-mm-dd - 000 format.
     for iter, img in tqdm(enumerate(files), desc='2/2 - Renaming files'):
-        cdate = img[-1].split(' ')[0].replace(':', '-')
+        cdate = img[-1].to_date_string()
         file_ext = img[1]
         newpath = f"{directory}/{cdate} - {str(iter).zfill(padding)}.{file_ext}"
         os.rename(img[0], newpath)
