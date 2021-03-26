@@ -29,15 +29,31 @@ def find_ctime(path):
     return cdate
 
 
-def non_recursive(directory, file_exts=['NEF']):
+def non_recursive(directory, file_exts=['NEF'], xmp_pairing=True):
     """Searches folder non-recursively for file with given
-    file extensions, retrieves EXIF dates and renames files"""
-    # Get list of .NEF files in directory
+    file extensions, retrieves EXIF dates and renames files.
+    If XMP pairing is enabled, rename them with same
+    as paired file"""
+    # Get list of image files in directory
     files = []
     exts = []
-    for ext in file_exts:
+
+    if xmp_pairing:
+        xmps = glob.glob(f"{directory}/*.xmp")
+        for ext in file_exts:
             for file in glob.glob(f"{directory}/*.{ext}"):
-                files.append([file, ext, None])
+                file_name = file.split('.')[:-1]
+                # Add paired XMP to list
+                if file_name in xmps:
+                    xmp = file_name + '.xmp'
+                    files.append([file, ext, xmp])
+                else:
+                    files.append([file, ext])
+
+    else:
+        for ext in file_exts:
+            for file in glob.glob(f"{directory}/*.{ext}"):
+                files.append([file, ext])
 
 
     # Create new list with tuplets of the path and time of creation for files.
@@ -53,7 +69,7 @@ def non_recursive(directory, file_exts=['NEF']):
     # Loop through each image file and rename to YY-mm-dd - 000 format. Iterate up.
     for iter, img in tqdm(enumerate(files), desc='2/2 - Renaming files'):
         cdate = img[-1].split(' ')[0].replace(':', '-')
-        file_ext = img[0].split('.')[-1]
+        file_ext = img[1]
         newpath = f"{directory}/{cdate} - {str(iter).zfill(padding)}.{file_ext}"
         os.rename(img[0], newpath)
 
