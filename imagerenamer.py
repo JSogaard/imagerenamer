@@ -47,12 +47,12 @@ def non_recursive(directory, file_exts=['NEF'], xmp_pairing=True):
                     xmp = file_name + '.xmp'
                     files.append([file, ext, None, xmp])
                 else:
-                    files.append([file, ext, None])
+                    files.append([file, ext, None, None])
 
     else:
         for ext in file_exts:
             for file in glob.glob(f"{directory}/*.{ext}"):
-                files.append([file, ext, None])
+                files.append([file, ext, None, None])
 
 
     # Add creation date to file property list
@@ -71,7 +71,7 @@ def non_recursive(directory, file_exts=['NEF'], xmp_pairing=True):
         file_ext = img[1]
         new_path = f"{directory}/{cdate} - {str(iter).zfill(padding)}.{file_ext}"
         os.rename(img[0], new_path)
-        if xmp_pairing and len(img) > 3:
+        if img[3]:
             xmp_path = f"{directory}/{cdate} - {str(iter).zfill(padding)}.xmp"
             os.rename(img[3], xmp_path)
 
