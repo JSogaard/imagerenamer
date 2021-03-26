@@ -29,27 +29,31 @@ def find_ctime(path):
     return cdate
 
 
-def non_recursive(directory, file_exts=['.NEF']):
+def non_recursive(directory, file_exts=['NEF']):
     """Searches folder non-recursively for file with given
     file extensions, retrieves EXIF dates and renames files"""
     # Get list of .NEF files in directory
     files = []
+    exts = []
     for ext in file_exts:
-        files.extend(glob.glob(f"{directory}/*{ext}"))
+            for file in glob.glob(f"{directory}/*.{ext}"):
+                files.append([file, ext])
+
+        # files.extend(glob.glob(f"{directory}/*.{ext}"))
 
     # Create new list with tuplets of the path and time of creation for files.
-    file_list = []
+    # file_list = []
     for file in tqdm(files, desc='1/2 - Retrieving EXIF'):
-        file_list.append((file, find_ctime(file)))
+        file.append(find_ctime(file))
 
     # Create new list sorted by creation time at index 1
-    file_list = sorted(file_list, key=lambda x: x[1])
+    files.sort(key=lambda x: x[-1])
 
     # Determining the left zero padding for the file name iterater
-    padding = len(str(len(file_list)))
+    padding = len(str(len(files)))
 
     # Loop through each image file and rename to YY-mm-dd - 000 format. Iterate up.
-    for iter, img in tqdm(enumerate(file_list), desc='2/2 - Renaming files'):
+    for iter, img in tqdm(enumerate(files), desc='2/2 - Renaming files'):
         cdate = img[1].split(' ')[0].replace(':', '-')
         file_ext = img[0].split('.')[-1]
         newpath = f"{directory}/{cdate} - {str(iter).zfill(padding)}.{file_ext}"
