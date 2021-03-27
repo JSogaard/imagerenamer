@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "imagerenamer"
-version = "0.3.3"
+version = "0.3.4"
 description = "An image file batch renamer"
 authors = ["Jonatan Søgaard <jonatanjuhl@icloud.com>"]
 license = "GPL-3.0-or-later"
@@ -10,13 +10,13 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.8"
 ExifRead = "^2.3.2"
-fire = "^0.4.0"
 tqdm = "^4.59.0"
 setuptools = "^54.2.0"
 pendulum = "^2.1.2"
+click = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
-ipykernel = "^5.5.0"
+black = {version = "^20.8b1", allow-prereleases = true}
 
 [tool.poetry.scripts]
 imagerenamer = "imagerenamer:main"
