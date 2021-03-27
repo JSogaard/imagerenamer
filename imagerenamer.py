@@ -35,7 +35,7 @@ def find_ctime(path):
     "-e",
     "--extentions",
     "file_exts",
-    default="NEF",
+    default=["NEF"],
     show_default=True,
     multiple=True,
     help="File Extensions to find and rename. Can be used multiple times.",
