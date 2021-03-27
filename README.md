@@ -2,4 +2,4 @@
 Batch Image Renaming package  
 *Alpha/Unstable*
 
-Can be installed with `pip install imagerenamer`
+Can be installed with `pip3 install imagerenamer`
