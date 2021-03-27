@@ -48,7 +48,7 @@ def find_ctime(path):
     default=True,
     help="If enabled, the program will find .XMP files with the same name as an image file and rename them the same.",
 )
-def main(directory, file_exts=["NEF"], xmp_pairing=True):
+def main(directory, file_exts, xmp_pairing=True):
     """Searches folder non-recursively for file with given
     file extensions, retrieves EXIF dates and renames files.
     If XMP pairing is enabled, rename them with same
