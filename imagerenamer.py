@@ -7,17 +7,6 @@ import click
 from tqdm import tqdm
 
 
-def find_cdate(path):
-    """Finds the creation date (without time of day) of an image file from EXIF.
-    Arguments: path
-    Dependencies: ExifRead
-    """
-    with open(path, "rb") as file:
-        exif = exifread.process_file(file)
-        cdate = pm.parse(str(exif["Image DateTime"]))
-    return cdate
-
-
 def find_ctime(path):
     """Finds the creation date AND time of an image file EXIF.
     Arguments: path
