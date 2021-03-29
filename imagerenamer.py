@@ -94,4 +94,4 @@ def main(directory, file_exts, xmp_pairing=True):
 
 
 if __name__ == "__main__":
-    main(".")
+    main()
