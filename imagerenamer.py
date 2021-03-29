@@ -60,7 +60,8 @@ def main(directory, file_exts, xmp_pairing=True):
         xmps = glob.glob(f"{directory}/*.xmp")
         for ext in file_exts:
             for file in glob.glob(f"{directory}/*.{ext}"):
-                file_name = file.split(".")[:-1][0]
+                file_name = file.rsplit(".", 1)[:-1][0]
+                print(file_name)
                 # Add paired XMP to file property list
                 if (xmp := file_name + ".xmp") in xmps:
                     files.append([file, ext, None, xmp])
@@ -94,4 +95,4 @@ def main(directory, file_exts, xmp_pairing=True):
 
 
 if __name__ == "__main__":
-    main()
+    main(".")
