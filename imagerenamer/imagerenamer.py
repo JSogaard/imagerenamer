@@ -5,17 +5,7 @@ import pendulum as pm
 import exifread
 import click
 from tqdm import tqdm
-
-
-def find_cdate(path):
-    """Finds the creation date (without time of day) of an image file from EXIF.
-    Arguments: path
-    Dependencies: ExifRead
-    """
-    with open(path, "rb") as file:
-        exif = exifread.process_file(file)
-        cdate = pm.parse(str(exif["Image DateTime"]))
-    return cdate
+from dataclasses import dataclass
 
 
 def find_ctime(path):
@@ -27,6 +17,14 @@ def find_ctime(path):
         exif = exifread.process_file(file)
         cdate = pm.parse(str(exif["Image DateTime"]))
     return cdate
+
+
+@dataclass
+class File:
+    path: str
+    ext: str
+    ctime: pm.DateTime = None
+    xmp: str = None
 
 
 @click.command()
@@ -63,34 +61,34 @@ def main(directory, file_exts, xmp_pairing=True):
                 file_name = file.rsplit(".", 1)[:-1][0]
                 # Add paired XMP to file property list
                 if (xmp := file_name + ".xmp") in xmps:
-                    files.append([file, ext, None, xmp])
+                    files.append(File(path=file, ext=ext, xmp=xmp))
                 else:
-                    files.append([file, ext, None, None])
+                    files.append(File(path=file, ext=ext))
 
     else:
         for ext in file_exts:
             for file in glob.glob(f"{directory}/*.{ext}"):
-                files.append([file, ext, None, None])
+                files.append(File(path=file, ext=ext))
 
     # Add creation date to file property list
     for file in tqdm(files, desc="1/2 - Retrieving EXIF"):
-        file[2] = find_ctime(file[0])
+        file.ctime = find_ctime(file.path)
 
     # Sort file list by creation time at last index (ctime)
-    files.sort(key=lambda x: x[2])
+    files.sort(key=lambda x: x.ctime)
 
     # Determining the left zero padding for the file name iterater
     padding = len(str(len(files)))
 
     # Loop through each image file and rename to YY-mm-dd - 000 format.
     for iter, img in tqdm(enumerate(files), desc="2/2 - Renaming files"):
-        cdate = img[2].to_date_string()
-        file_ext = img[1]
+        cdate = img.ctime.to_date_string()
+        file_ext = img.ext
         new_path = f"{directory}/{cdate} - {str(iter).zfill(padding)}.{file_ext}"
-        os.rename(img[0], new_path)
-        if img[3]:
+        os.rename(img.path, new_path)
+        if img.xmp:
             xmp_path = f"{directory}/{cdate} - {str(iter).zfill(padding)}.xmp"
-            os.rename(img[3], xmp_path)
+            os.rename(img.xmp, xmp_path)
 
 
 if __name__ == "__main__":
