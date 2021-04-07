@@ -5,8 +5,10 @@ import pendulum as pm
 import exifread
 import click
 from tqdm import tqdm
+from rich.console import Console
 from dataclasses import dataclass
 
+console = Console()
 
 def find_ctime(path):
     """Finds the creation date AND time of an image file EXIF.
@@ -71,7 +73,8 @@ def main(directory, file_exts, xmp_pairing=True):
                 files.append(File(path=file, ext=ext))
 
     # Add creation date to file property list
-    for file in tqdm(files, desc="1/2 - Retrieving EXIF"):
+    console.print("1 of 2 - Retrieving EXIF", style="bold blue")
+    for file in tqdm(files):
         file.ctime = find_ctime(file.path)
 
     # Sort file list by creation time at last index (ctime)
