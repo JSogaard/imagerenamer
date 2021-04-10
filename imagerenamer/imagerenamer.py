@@ -53,7 +53,6 @@ def main(directory, file_exts, xmp_pairing=True):
     file extensions, retrieves EXIF dates and renames files.
     If XMP pairing is enabled, rename them with same
     as paired file"""
-    # Get list of image files in directory
     files = []
 
     if xmp_pairing:
@@ -61,7 +60,6 @@ def main(directory, file_exts, xmp_pairing=True):
         for ext in file_exts:
             for file in glob.glob(f"{directory}/*.{ext}"):
                 file_name = file.rsplit(".", 1)[:-1][0]
-                # Add paired XMP to file property list
                 if (xmp := file_name + ".xmp") in xmps:
                     files.append(File(path=file, ext=ext, xmp=xmp))
                 else:
@@ -72,18 +70,14 @@ def main(directory, file_exts, xmp_pairing=True):
             for file in glob.glob(f"{directory}/*.{ext}"):
                 files.append(File(path=file, ext=ext))
 
-    # Add creation date to file property list
     console.print("1 of 2 - Retrieving EXIF", style="bold blue")
     for file in tqdm(files):
         file.ctime = find_ctime(file.path)
 
-    # Sort file list by creation time at last index (ctime)
     files.sort(key=lambda x: x.ctime)
 
-    # Determining the left zero padding for the file name iterater
     padding = len(str(len(files)))
 
-    # Loop through each image file and rename to YY-mm-dd - 000 format.
     for iter, img in tqdm(enumerate(files), desc="2/2 - Renaming files"):
         cdate = img.ctime.to_date_string()
         file_ext = img.ext
