@@ -10,7 +10,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.8"
 ExifRead = "^2.3.2"
-tqdm = "^4.59.0"
+tqdm = "^4.63.0"
 setuptools = "^54.2.0"
 pendulum = "^2.1.2"
 click = "^7.1.2"
