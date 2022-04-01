@@ -13,7 +13,7 @@ ExifRead = "^2.3.2"
 tqdm = "^4.59.0"
 setuptools = "^54.2.0"
 pendulum = "^2.1.2"
-click = "^7.1.2"
+click = "^8.1.2"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.6"
